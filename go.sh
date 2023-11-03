@@ -45,11 +45,18 @@ bgpurple=$(tput setab 5)
 # clear
 echo "${green}${bold}"
 echo ""
-echo " ██████ ██ ██████  ██" 
-echo "██      ██ ██   ██ ██" 
-echo "██      ██ ██████  ██" 
-echo "██      ██ ██      ██" 
-echo " ██████ ██ ██      ██" 
+# echo " ██████ ██ ██████  ██" 
+# echo "██      ██ ██   ██ ██" 
+# echo "██      ██ ██████  ██" 
+# echo "██      ██ ██      ██" 
+# echo " ██████ ██ ██      ██" 
+echo "    ___       ___       ___    " 
+echo "   /\  \     /\  \     /\  \   " 
+echo "  /::\  \   /::\  \   /::\  \  " 
+echo " /:/\:\__\ /:/\:\__\ /::\:\__\ " 
+echo " \:\/:/  / \:\ \/__/ \/\::/  / " 
+echo "  \::/  /   \:\__\      \/__/  " 
+echo "   \/__/     \/__/             " 
 echo ""
 echo "Installation has been started... Hold on!"
 # echo "${reset}"
@@ -218,9 +225,9 @@ echo "************ USER ************ "
 sleep 1s
 
 sudo pam-auth-update --package
-sudo mount -o remount,rw /
-sudo chmod 640 /etc/shadow
-sudo useradd -m -s /bin/bash cipi
+# sudo mount -o remount,rw /
+# sudo chmod 640 /etc/shadow
+sudo useradd -m -s /bin/bash $PANEL_USER
 echo "$PANEL_USER:$PASS"|sudo chpasswd
 sudo usermod -aG sudo $PANEL_USER
 
