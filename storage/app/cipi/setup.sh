@@ -563,9 +563,9 @@ sudo rpl -i -w "PasswordAuthentication no" "PasswordAuthentication yes" /etc/ssh
 sudo rpl -i -w "PermitRootLogin yes" "PermitRootLogin no" /etc/ssh/sshd_config
 sudo service sshd restart
 wget -P /var/www/html/ - https://raw.githubusercontent.com/$REPO/latest/utility/zero-page/index.php
-CIPIBULD=/var/www/html/build_$SERVERID.php
-sudo touch $CIPIBULD
-sudo cat > "$CIPIBULD" <<EOF
+OWNERBULD=/var/www/html/build_$SERVERID.php
+sudo touch $OWNERBULD
+sudo cat > "$OWNERBULD" <<EOF
 $BUILD
 EOF
 CIPIPING=/var/www/html/ping_$SERVERID.php

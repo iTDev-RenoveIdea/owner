@@ -3,13 +3,16 @@
 
 
 #################################################### CONFIGURATION ###
-BUILD=202104281
+BUILD=20231103232100
 PASS=$(openssl rand -base64 32|sha256sum|base64|head -c 32| tr '[:upper:]' '[:lower:]')
 DBPASS=$(openssl rand -base64 24|sha256sum|base64|head -c 32| tr '[:upper:]' '[:lower:]')
 SERVERID=$(openssl rand -base64 12|sha256sum|base64|head -c 32| tr '[:upper:]' '[:lower:]')
 IP=$(curl -s https://checkip.amazonaws.com)
-REPO=samjidiamond/cipi
+REPO=iTDev-RenoveIdea/owner
 BRANCH=master
+PANEL_NAME=OWNER
+PANEL_USER=owner
+PANEL_DIR=owner
 
 
 
@@ -39,7 +42,7 @@ bgpurple=$(tput setab 5)
 
 
 # LOGO
-clear
+# clear
 echo "${green}${bold}"
 echo ""
 echo " ██████ ██ ██████  ██" 
@@ -49,17 +52,19 @@ echo "██      ██ ██      ██" 
 echo " ██████ ██ ██      ██" 
 echo ""
 echo "Installation has been started... Hold on!"
-echo "${reset}"
+# echo "${reset}"
+echo "******************* INIT INSTALL MODULES *******************"
 sleep 3s
 
 
 
 # OS CHECK
-clear
-clear
+# clear
+# clear
+echo "************ OS CHECK ************ "
 echo "${bggreen}${black}${bold}"
 echo "OS check..."
-echo "${reset}"
+# echo "${reset}"
 sleep 1s
 
 ID=$(grep -oP '(?<=^ID=).+' /etc/os-release | tr -d '"')
@@ -71,47 +76,49 @@ if [ "$ID" = "ubuntu" ]; then
             ;;
         *)
             echo "${bgred}${white}${bold}"
-            echo "Cipi requires Linux Ubuntu 20.04 LTS"
-            echo "${reset}"
+            echo "$PANEL_NAME requires Linux Ubuntu 20.04 LTS"
+            # echo "${reset}"
             exit 1;
             break
             ;;
     esac
 else
     echo "${bgred}${white}${bold}"
-    echo "Cipi requires Linux Ubuntu 20.04 LTS"
-    echo "${reset}"
+    echo "$PANEL_NAME requires Linux Ubuntu 20.04 LTS"
+    # echo "${reset}"
     exit 1
 fi
 
 
 
 # ROOT CHECK
-clear
-clear
+# clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "Permission check..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ ROOT CHECK ************ "
 sleep 1s
 
 if [ "$(id -u)" = "0" ]; then
-    clear
+    # clear
 else
-    clear
+    # clear
     echo "${bgred}${white}${bold}"
-    echo "You have to run Cipi as root. (In AWS use 'sudo -s')"
-    echo "${reset}"
+    echo "You have to run $PANEL_NAME as root. (In AWS use 'sudo -s')"
+    # echo "${reset}"
     exit 1
 fi
 
 
 
 # BASIC SETUP
-clear
-clear
+# clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "Base setup..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ BASIC SETUP ************ "
 sleep 1s
 
 sudo apt-get update
@@ -120,21 +127,39 @@ sudo apt-get -y install software-properties-common curl wget nano vim rpl sed zi
 
 
 # MOTD WELCOME MESSAGE
-clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "Motd settings..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ MOTD WELCOME MESSAGE ************ "
 sleep 1s
 
 WELCOME=/etc/motd
 sudo touch $WELCOME
 sudo cat > "$WELCOME" <<EOF
+         _______                   _____                    _____                    _____                    _____
+        /::\    \                 /\    \                  /\    \                  /\    \                  /\    \
+       /::::\    \               /::\____\                /::\____\                /::\    \                /::\    \
+      /::::::\    \             /:::/    /               /::::|   |               /::::\    \              /::::\    \
+     /::::::::\    \           /:::/   _/___            /:::::|   |              /::::::\    \            /::::::\    \
+    /:::/~~\:::\    \         /:::/   /\    \          /::::::|   |             /:::/\:::\    \          /:::/\:::\    \
+   /:::/    \:::\    \       /:::/   /::\____\        /:::/|::|   |            /:::/__\:::\    \        /:::/__\:::\    \
+  /:::/    / \:::\    \     /:::/   /:::/    /       /:::/ |::|   |           /::::\   \:::\    \      /::::\   \:::\    \
+ /:::/____/   \:::\____\   /:::/   /:::/   _/___    /:::/  |::|   | _____    /::::::\   \:::\    \    /::::::\   \:::\    \
+|:::|    |     |:::|    | /:::/___/:::/   /\    \  /:::/   |::|   |/\    \  /:::/\:::\   \:::\    \  /:::/\:::\   \:::\____\
+|:::|____|     |:::|    ||:::|   /:::/   /::\____\/:: /    |::|   /::\____\/:::/__\:::\   \:::\____\/:::/  \:::\   \:::|    |
+ \:::\    \   /:::/    / |:::|__/:::/   /:::/    /\::/    /|::|  /:::/    /\:::\   \:::\   \::/    /\::/   |::::\  /:::|____|
+  \:::\    \ /:::/    /   \:::\/:::/   /:::/    /  \/____/ |::| /:::/    /  \:::\   \:::\   \/____/  \/____|:::::\/:::/    /
+   \:::\    /:::/    /     \::::::/   /:::/    /           |::|/:::/    /    \:::\   \:::\    \            |:::::::::/    /
+    \:::\__/:::/    /       \::::/___/:::/    /            |::::::/    /      \:::\   \:::\____\           |::|\::::/    /
+     \::::::::/    /         \:::\__/:::/    /             |:::::/    /        \:::\   \::/    /           |::| \::/____/
+      \::::::/    /           \::::::::/    /              |::::/    /          \:::\   \/____/            |::|  ~|
+       \::::/    /             \::::::/    /               /:::/    /            \:::\    \                |::|   |
+        \::/____/               \::::/    /               /:::/    /              \:::\____\               \::|   |
+         ~~                      \::/____/                \::/    /                \::/    /                \:|   |
+                                  ~~                       \/____/                  \/____/                  \|___|
 
- ██████ ██ ██████  ██ 
-██      ██ ██   ██ ██ 
-██      ██ ██████  ██ 
-██      ██ ██      ██
- ██████ ██ ██      ██
+----------------------------------------------------------------------------------------------------------------- By Lamjar --
 
 With great power comes great responsibility...
 
@@ -143,10 +168,11 @@ EOF
 
 
 # SWAP
-clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "Memory SWAP..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ SWAP ************ "
 sleep 1s
 
 sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
@@ -156,10 +182,11 @@ sudo /sbin/swapon /var/swap.1
 
 
 # ALIAS
-clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "Custom CLI configuration..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ ALIAS ************ "
 sleep 1s
 
 shopt -s expand_aliases
@@ -167,42 +194,45 @@ alias ll='ls -alF'
 
 
 
-# CIPI DIRS
-clear
+# OWNER DIRS
+# clear
 echo "${bggreen}${black}${bold}"
-echo "Cipi directories..."
-echo "${reset}"
+echo "OWNER directories..."
+# echo "${reset}"
+echo "************ OWNER DIRS ************ "
 sleep 1s
 
-sudo mkdir /etc/cipi/
-sudo chmod o-r /etc/cipi
-sudo mkdir /var/cipi/
-sudo chmod o-r /var/cipi
+sudo mkdir /etc/$PANEL_DIR/
+sudo chmod o-r /etc/$PANEL_DIR
+sudo mkdir /var/$PANEL_DIR/
+sudo chmod o-r /var/$PANEL_DIR
 
 
 
 # USER
-clear
+# clear
 echo "${bggreen}${black}${bold}"
-echo "Cipi root user..."
-echo "${reset}"
+echo "$PANEL_NAME root user..."
+# echo "${reset}"
+echo "************ USER ************ "
 sleep 1s
 
 sudo pam-auth-update --package
 sudo mount -o remount,rw /
 sudo chmod 640 /etc/shadow
 sudo useradd -m -s /bin/bash cipi
-echo "cipi:$PASS"|sudo chpasswd
-sudo usermod -aG sudo cipi
+echo "$PANEL_USER:$PASS"|sudo chpasswd
+sudo usermod -aG sudo $PANEL_USER
 
 
 
 
 # NGINX
-clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "nginx setup..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ NGINX ************ "
 sleep 1s
 
 sudo apt-get -y install nginx-core
@@ -216,10 +246,11 @@ sudo systemctl enable nginx.service
 
 
 # FIREWALL
-clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "fail2ban setup..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ FIREWALL ************ "
 sleep 1s
 
 sudo apt-get -y install fail2ban
@@ -245,10 +276,11 @@ sudo ufw allow "Nginx Full"
 
 
 # PHP
-clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "PHP setup..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ PHP ************ "
 sleep 1s
 
 
@@ -276,7 +308,7 @@ sudo apt-get -y install php7.3-imagick
 sudo apt-get -y install php7.3-fileinfo
 sudo apt-get -y install php7.3-imap
 sudo apt-get -y install php7.3-cli
-PHPINI=/etc/php/7.3/fpm/conf.d/cipi.ini
+PHPINI=/etc/php/7.3/fpm/conf.d/$PANEL_DIR.ini
 sudo touch $PHPINI
 sudo cat > "$PHPINI" <<EOF
 memory_limit = 256M
@@ -308,7 +340,7 @@ sudo apt-get -y install php7.4-imagick
 sudo apt-get -y install php7.4-fileinfo
 sudo apt-get -y install php7.4-imap
 sudo apt-get -y install php7.4-cli
-PHPINI=/etc/php/7.4/fpm/conf.d/cipi.ini
+PHPINI=/etc/php/7.4/fpm/conf.d/$PANEL_DIR.ini
 sudo touch $PHPINI
 sudo cat > "$PHPINI" <<EOF
 memory_limit = 256M
@@ -340,7 +372,7 @@ sudo apt-get -y install php8.0-imagick
 sudo apt-get -y install php8.0-fileinfo
 sudo apt-get -y install php8.0-imap
 sudo apt-get -y install php8.0-cli
-PHPINI=/etc/php/8.0/fpm/conf.d/cipi.ini
+PHPINI=/etc/php/8.0/fpm/conf.d/$PANEL_DIR.ini
 sudo touch $PHPINI
 sudo cat > "$PHPINI" <<EOF
 memory_limit = 256M
@@ -372,7 +404,7 @@ sudo apt-get -y install php8.1-imagick
 sudo apt-get -y install php8.1-fileinfo
 sudo apt-get -y install php8.1-imap
 sudo apt-get -y install php8.1-cli
-PHPINI=/etc/php/8.1/fpm/conf.d/cipi.ini
+PHPINI=/etc/php/8.1/fpm/conf.d/$PANEL_DIR.ini
 sudo touch $PHPINI
 sudo cat > "$PHPINI" <<EOF
 memory_limit = 256M
@@ -404,7 +436,7 @@ sudo apt-get -y install php8.2-imagick
 sudo apt-get -y install php8.2-fileinfo
 sudo apt-get -y install php8.2-imap
 sudo apt-get -y install php8.2-cli
-PHPINI=/etc/php/8.2/fpm/conf.d/cipi.ini
+PHPINI=/etc/php/8.2/fpm/conf.d/$PANEL_DIR.ini
 sudo touch $PHPINI
 sudo cat > "$PHPINI" <<EOF
 memory_limit = 256M
@@ -417,14 +449,16 @@ sudo service php8.2-fpm restart
 
 
 # PHP EXTRA
+echo "************ PHP EXTRA ************ "
 sudo apt-get -y install php-dev php-pear
 
 
 # PHP CLI
-clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "PHP CLI configuration..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ PHP CLI ************ "
 sleep 1s
 
 sudo update-alternatives --set php /usr/bin/php8.0
@@ -432,10 +466,11 @@ sudo update-alternatives --set php /usr/bin/php8.0
 
 
 # COMPOSER
-clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "Composer setup..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ COMPOSER ************ "
 sleep 1s
 
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -448,22 +483,24 @@ composer config --global repo.packagist composer https://packagist.org --no-inte
 
 
 # GIT
-clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "GIT setup..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ GIT ************ "
 sleep 1s
 
 sudo apt-get -y install git
-sudo ssh-keygen -t rsa -C "git@github.com" -f /etc/cipi/github -q -P ""
+sudo ssh-keygen -t rsa -C "git@github.com" -f /etc/$PANEL_DIR/github -q -P ""
 
 
 
 # SUPERVISOR
-clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "Supervisor setup..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ SUPERVISOR ************ "
 sleep 1s
 
 sudo apt-get -y install supervisor
@@ -472,10 +509,11 @@ service supervisor restart
 
 
 # DEFAULT VHOST
-clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "Default vhost..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ DEFAULT VHOST ************ "
 sleep 1s
 
 NGINX=/etc/nginx/sites-available/default
@@ -512,7 +550,7 @@ server {
     }
 }
 EOF
-sudo mkdir /etc/nginx/cipi/
+sudo mkdir /etc/nginx/$PANEL_DIR/
 sudo systemctl restart nginx.service
 
 
@@ -520,10 +558,11 @@ sudo systemctl restart nginx.service
 
 
 # MYSQL
-clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "MySQL setup..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ MYSQL ************ "
 sleep 1s
 
 
@@ -550,18 +589,19 @@ expect eof
 echo "$SECURE_MYSQL"
 /usr/bin/mysql -u root -p$DBPASS <<EOF
 use mysql;
-CREATE USER 'cipi'@'%' IDENTIFIED WITH mysql_native_password BY '$DBPASS';
-GRANT ALL PRIVILEGES ON *.* TO 'cipi'@'%' WITH GRANT OPTION;
+CREATE USER '$PANEL_USER'@'%' IDENTIFIED WITH mysql_native_password BY '$DBPASS';
+GRANT ALL PRIVILEGES ON *.* TO '$PANEL_USER'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 EOF
 
 
 
 # REDIS
-clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "Redis setup..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ REDIS ************ "
 sleep 1s
 
 sudo apt install -y redis-server
@@ -571,10 +611,11 @@ sudo systemctl restart redis.service
 
 
 # LET'S ENCRYPT
-clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "Let's Encrypt setup..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ LET'S ENCRYPT ************ "
 sleep 1s
 
 sudo snap install --beta --classic certbot
@@ -582,10 +623,11 @@ sudo snap install --beta --classic certbot
 
 
 # NODE v18
-clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "Node/npm setup..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ NODE v18 ************ "
 sleep 1s
 
 curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
@@ -602,21 +644,23 @@ sudo apt -y install nodejs
 sudo apt -y install npm
 
 #PM2 INSTALLATION
+echo "************ PM2 INSTALLATION ************ "
 sudo npm install pm2@latest -g
 
 
 #PANEL INSTALLATION
-clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "Panel installation..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ PANEL INSTALLATION ************ "
 sleep 1s
 
 
 /usr/bin/mysql -u root -p$DBPASS <<EOF
-CREATE DATABASE IF NOT EXISTS cipi;
+CREATE DATABASE IF NOT EXISTS $PANEL_NAME;
 EOF
-clear
+# clear
 sudo rm -rf /var/www/html
 cd /var/www && git clone https://github.com/$REPO.git html
 cd /var/www/html && git pull
@@ -625,28 +669,28 @@ cd /var/www/html && git pull
 cd /var/www/html && sudo unlink .env
 cd /var/www/html && sudo cp .env.example .env
 cd /var/www/html && php artisan key:generate
-sudo rpl -i -w "DB_USERNAME=dbuser" "DB_USERNAME=cipi" /var/www/html/.env
+sudo rpl -i -w "DB_USERNAME=dbuser" "DB_USERNAME=$PANEL_USER" /var/www/html/.env
 sudo rpl -i -w "DB_PASSWORD=dbpass" "DB_PASSWORD=$DBPASS" /var/www/html/.env
-sudo rpl -i -w "DB_DATABASE=dbname" "DB_DATABASE=cipi" /var/www/html/.env
+sudo rpl -i -w "DB_DATABASE=dbname" "DB_DATABASE=$PANEL_NAME" /var/www/html/.env
 sudo rpl -i -w "APP_URL=http://localhost" "APP_URL=http://$IP" /var/www/html/.env
 sudo rpl -i -w "APP_ENV=local" "APP_ENV=production" /var/www/html/.env
-sudo rpl -i -w "CIPISERVERID" $SERVERID /var/www/html/database/seeders/DatabaseSeeder.php
-sudo rpl -i -w "CIPIIP" $IP /var/www/html/database/seeders/DatabaseSeeder.php
-sudo rpl -i -w "CIPIPASS" $PASS /var/www/html/database/seeders/DatabaseSeeder.php
-sudo rpl -i -w "CIPIDB" $DBPASS /var/www/html/database/seeders/DatabaseSeeder.php
+sudo rpl -i -w "OWNERSERVERID" $SERVERID /var/www/html/database/seeders/DatabaseSeeder.php
+sudo rpl -i -w "OWNERIP" $IP /var/www/html/database/seeders/DatabaseSeeder.php
+sudo rpl -i -w "OWNERPASS" $PASS /var/www/html/database/seeders/DatabaseSeeder.php
+sudo rpl -i -w "OWNERDB" $DBPASS /var/www/html/database/seeders/DatabaseSeeder.php
 sudo chmod -R o+w /var/www/html/storage
 sudo chmod -R 777 /var/www/html/storage
 sudo chmod -R o+w /var/www/html/bootstrap/cache
 sudo chmod -R 777 /var/www/html/bootstrap/cache
 cd /var/www/html && composer update --no-interaction
 cd /var/www/html && php artisan key:generate
-cd /var/www/html && php artisan cache:clear
+cd /var/www/html && php artisan cache:# clear
 cd /var/www/html && php artisan storage:link
 cd /var/www/html && php artisan view:cache
-cd /var/www/html && php artisan cipi:activesetupcount
-CIPIBULD=/var/www/html/public/build_$SERVERID.php
-sudo touch $CIPIBULD
-sudo cat > $CIPIBULD <<EOF
+cd /var/www/html && php artisan $PANEL_USER:activesetupcount
+OWNERBULD=/var/www/html/public/build_$SERVERID.php
+sudo touch $OWNERBULD
+sudo cat > $OWNERBULD <<EOF
 $BUILD
 EOF
 CIPIPING=/var/www/html/public/ping_$SERVERID.php
@@ -658,7 +702,7 @@ PUBKEYGH=/var/www/html/public/ghkey_$SERVERID.php
 sudo touch $PUBKEYGH
 sudo cat > $PUBKEYGH <<EOF
 <?php
-echo exec("cat /etc/cipi/github.pub");
+echo exec("cat /etc/$PANEL_USER/github.pub");
 EOF
 cd /var/www/html && php artisan migrate --seed --force
 cd /var/www/html && php artisan config:cache
@@ -671,13 +715,14 @@ sudo chown -R www-data:www-data /var/www/html
 
 
 # LAST STEPS
-clear
+# clear
 echo "${bggreen}${black}${bold}"
 echo "Last steps..."
-echo "${reset}"
+# echo "${reset}"
+echo "************ LAST STEPS ************ "
 sleep 1s
 
-TASK=/etc/cron.d/cipi.crontab
+TASK=/etc/cron.d/$PANEL_USER.crontab
 touch $TASK
 cat > "$TASK" <<EOF
 10 4 * * 7 certbot renew --nginx --non-interactive --post-hook "systemctl restart nginx.service"
@@ -686,7 +731,7 @@ cat > "$TASK" <<EOF
 20 5 * * 7 apt-get clean && apt-get autoclean
 50 5 * * * echo 3 > /proc/sys/vm/drop_caches && swapoff -a && swapon -a
 * * * * * cd /var/www/html && php artisan schedule:run >> /dev/null 2>&1
-5 2 * * * cd /var/www/html/utility/cipi-update && sh run.sh >> /dev/null 2>&1
+5 2 * * * cd /var/www/html/utility/$PANEL_USER-update && sh run.sh >> /dev/null 2>&1
 EOF
 crontab $TASK
 sudo systemctl restart nginx.service
@@ -695,17 +740,17 @@ sudo rpl -i -w "# PasswordAuthentication" "PasswordAuthentication" /etc/ssh/sshd
 sudo rpl -i -w "PasswordAuthentication no" "PasswordAuthentication yes" /etc/ssh/sshd_config
 sudo rpl -i -w "PermitRootLogin yes" "PermitRootLogin no" /etc/ssh/sshd_config
 sudo service sshd restart
-TASK=/etc/supervisor/conf.d/cipi.conf
+TASK=/etc/supervisor/conf.d/$PANEL_USER.conf
 touch $TASK
 cat > "$TASK" <<EOF
-[program:cipi-worker]
+[program:$PANEL_USER-worker]
 process_name=%(program_name)s_%(process_num)02d
 command=php /var/www/html/artisan queue:work --sleep=3 --tries=3 --max-time=3600
 autostart=true
 autorestart=true
 stopasgroup=true
 killasgroup=true
-user=cipi
+user=$PANEL_USER
 numprocs=8
 redirect_stderr=true
 stdout_logfile=/var/www/worker.log
@@ -717,24 +762,25 @@ sudo supervisorctl start all
 sudo service supervisor restart
 
 # COMPLETE
-clear
+# clear
 echo "${bggreen}${black}${bold}"
-echo "Cipi installation has been completed..."
-echo "${reset}"
+echo "$PANEL_NAME installation has been completed..."
+# echo "${reset}"
+echo "************ COMPLETE ************ "
 sleep 1s
 
 
 
 
 # SETUP COMPLETE MESSAGE
-clear
+# clear
 echo "***********************************************************"
 echo "                    SETUP COMPLETE"
 echo "***********************************************************"
 echo ""
-echo " SSH root user: cipi"
+echo " SSH root user: $PANEL_USER"
 echo " SSH root pass: $PASS"
-echo " MySQL root user: cipi"
+echo " MySQL root user: $PANEL_USER"
 echo " MySQL root pass: $DBPASS"
 echo ""
 echo " To manage your server visit: http://$IP"

@@ -1,42 +1,42 @@
-<img src="https://github.com/andreapollastri/cipi/blob/master/utility/design/banner.png?raw=true">
+<img src="https://github.com/iTDev-RenoveIdea/owner/blob/master/utility/design/banner.png?raw=true">
 
-![GitHub stars](https://img.shields.io/github/stars/andreapollastri/cipi?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/andreapollastri/cipi?style=social)
-![GitHub issues](https://img.shields.io/github/issues/andreapollastri/cipi)
-![GitHub](https://img.shields.io/github/license/andreapollastri/cipi)
-![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/andreapollastri/cipi?label=version)
+![GitHub stars](https://img.shields.io/github/stars/iTDev-RenoveIdea/owner?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/iTDev-RenoveIdea/owner?style=social)
+![GitHub issues](https://img.shields.io/github/issues/iTDev-RenoveIdea/owner)
+![GitHub](https://img.shields.io/github/license/iTDev-RenoveIdea/owner)
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/iTDev-RenoveIdea/owner?label=version)
 
 ## About
-Cipi is a Laravel based cloud server control panel that supports Digital Ocean, AWS, Vultr, Google Cloud, Linode, Azure and other VPS. It comes with nginx, Mysql, multi PHP-FPM versions, multi users, Supervisor, Composer, npm, free Let's Encrypt certificates, Git deployment, backups, ffmpeg, fail2ban, Redis, API and with a simple graphical interface useful to manage Laravel, Codeigniter, Symfony, WordPress or other PHP applications. With Cipi you don’t need to be a Sys Admin to deploy and manage websites and PHP applications powered by cloud VPS.
+Owner CP is a Laravel based cloud server control panel that supports Digital Ocean, AWS, Vultr, Google Cloud, Linode, Azure and other VPS. It comes with nginx, Mysql, multi PHP-FPM versions, multi users, Supervisor, Composer, npm, free Let's Encrypt certificates, Git deployment, backups, ffmpeg, fail2ban, Redis, API and with a simple graphical interface useful to manage Laravel, Codeigniter, Symfony, WordPress or other PHP applications. With Owner CP you don’t need to be a Sys Admin to deploy and manage websites and PHP applications powered by cloud VPS.
 
 ## Features
 - Easy install: setup one or more servers with a click in few minutes without be a Linux expert.
 
 - Server Management: manage one or more servers in as easy as a few clicks without be a LEMP Guru.
 
-- Perfect stack for PHP devs: Cipi comes with nginx, PHP, MySql, Composer, npm and Supervisor.
+- Perfect stack for PHP devs: Owner CP comes with nginx, PHP, MySql, Composer, npm and Supervisor.
 
 - Multi-PHP: Run simultaneous PHP versions at your ease & convenience.
 
 - Secure: no unsed open ports, unprivileged PHP, isolated system users and filesystem, only SFTP (no insecure FTP), Free SSL certificates everywhere.
 
-- Always update: Cipi takes care about your business and automatically keeps your server's software up to date so you always have the latest security patches.
+- Always update: Owner CP takes care about your business and automatically keeps your server's software up to date so you always have the latest security patches.
 
-- Integrate Cipi with your own software via Rest API and Swagger.
+- Integrate Owner CP with your own software via Rest API and Swagger.
 
 - Real-time servers stats: Keep an eye on everything through an awesome dashboard.
 
-- Always up to date: Cipi installs last versions of LTS dists and supports Ubuntu 20.04 LTS :)
+- Always up to date: Owner CP installs last versions of LTS dists and supports Ubuntu 20.04 LTS :)
 
-## Discover Cipi
-Visit website: https://cipi.sh
+## Discover Owner CP
+Visit website: https://ownercp.renoveidea.com
 
 ## Documentation
-Cipi Documentation is available at: https://cipi.sh/docs.html.
+Owner CP Documentation is available at: https://ownercp.renoveidea.com/docs.html.
 
 ## Installation
 ```
-wget -O - https://cipi.sh/go.sh | bash
+wget -O - https://ownercp.renoveidea.com/go.sh | bash
 ```
 #### Installation on AWS
 AWS by default disables root login. To login as root inside AWS, login as default user and then use command sudo -s.
@@ -44,23 +44,23 @@ AWS by default disables root login. To login as root inside AWS, login as defaul
 ```
 $ ssh ubuntu@<your server IP address>
 $ ubuntu@aws:~$ sudo -s
-$ root@aws:~# wget -O - https://cipi.sh/go.sh | bash
+$ root@aws:~# wget -O - https://ownercp.renoveidea.com/go.sh | bash
 ```
 Remember to open ports: 22, 80 and 443.
 
 #### Installation Note
-Before you can use Cipi, please make sure your server fulfils these requirements:
+Before you can use Owner CP, please make sure your server fulfils these requirements:
 
 - Ubuntu 20.04 x86_64 LTS (Fresh installation)
 - If the server is virtual (VPS), OpenVZ may not be supported (Kernel 2.6)
 
-Hardware Requirement: More than 1GB of HDD / At least 1 core processor / 512MB minimum RAM / At least 1 public IP Address (NAT VPS is not supported) / External firewall / For VPS providers such as AWS, those providers already include an external firewall for your VPS. Please open port 22, 80 and 443 to install Cipi.
+Hardware Requirement: More than 1GB of HDD / At least 1 core processor / 512MB minimum RAM / At least 1 public IP Address (NAT VPS is not supported) / External firewall / For VPS providers such as AWS, those providers already include an external firewall for your VPS. Please open port 22, 80 and 443 to install Owner CP.
 
-Installation may take up to about 30 minutes which may also depend on your server's internet speed. After the installation is completed, you are ready to use Cipi to manage your servers.
+Installation may take up to about 30 minutes which may also depend on your server's internet speed. After the installation is completed, you are ready to use Owner CP to manage your servers.
 
-To correctly manage remote servers Cipi has to be on a public IP address. Do not use it in localhost!
+To correctly manage remote servers Owner CP has to be on a public IP address. Do not use it in localhost!
 
-## Cipi LEMP environment
+## Owner CP LEMP environment
 - nginx: 1.18
 - PHP-FPM: 8.0, 7.4, 7.3
 - MySql: 8
@@ -76,15 +76,11 @@ To correctly manage remote servers Cipi has to be on a public IP address. Do not
 
 <img src="https://cipi.sh/assets/images/docs/site.png"> 
 
-## Why use Cipi?
-Cipi is easy, stable, powerful and free for any personal and commercial use and it's a perfect alternative to Runcloud, Ploi.io, Serverpilot, Forge, Moss.sh and similar software...
+## Why use Owner CP?
+Owner CP is easy, stable, powerful and free for any personal and commercial use and it's a perfect alternative to Runcloud, Ploi.io, Serverpilot, Forge, Moss.sh and similar software...
 
-## Mobile App
-Christian Giupponi (co-founder of ZeroUno Agency - https://zerouno.io/) developed Cipi Mobile Application.<br>
-ANDROID VERSION: https://play.google.com/store/apps/details?id=it.christiangiupponi.cipi<br>
-IOS VERSION: Coming soon!<br><br>
 
-## Cipi Roadmap... what's next?
+## Owner CP Roadmap... what's next?
 - Application Autoinstaller (Laravel, WP, phpmyadmin, Prestashop, ...)
 - Codebase Tests (Unit and Feature)
 - Improve codebase quality
@@ -108,27 +104,24 @@ IOS VERSION: Coming soon!<br><br>
 - Performance improvements
 
 ## Contributing
-Thank you for considering contributing to the Cipi Project (code, issues, feedbacks, stars, promo, money, beers) :)
+Thank you for considering contributing to the Owner CP Project (code, issues, feedbacks, stars, promo, money, beers) :)
 
 In case of code...
-- Fork it (https://github.com/andreapollastri/cipi)
+- Fork it (https://github.com/iTDev-RenoveIdea/owner)
 - Create your feature branch (`git checkout -b feature/fooBar`)
 - Commit your changes (`git commit -a -m 'Add some fooBar'`)
 - Push to the branch (`git push origin feature/fooBar`)
 - Create a new Pull Request
 
-In case of money...
-- Cipi was developed by Andrea Pollastri, pay him some beer: https://paypal.me/andreapollastri
-
 #### ...anyway star this project on Github, Thankyou ;)
 
 ## Licence
-Cipi is an open-source software licensed under the MIT license.
+Owner CP is an open-source software licensed under the MIT license.
 
-## Need support with Cipi?
-Please open an issue here: https://github.com/andreapollastri/cipi/issues.
+## Need support with Owner CP?
+Please open an issue here: https://github.com/iTDev-RenoveIdea/owner/issues.
 
-## Write to Cipi
-Write an email to: hello@cipi.sh
+## Write to Owner CP
+Write an email to: contact@renoveidea.com
 
-### ...enjoy Cipi :)
+### ...enjoy Owner CP :)
